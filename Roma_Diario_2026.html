@@ -401,6 +401,32 @@
   }
   @media (max-width:680px){.garmin iframe{height:600px}}
 
+  /* ========== FINAL AUDIO ========== */
+  .audio-recording{
+    max-width:720px;
+    margin:1rem auto 0;
+    padding:0 1.5rem 2.5rem;
+  }
+  .audio-recording .card{
+    background:rgba(251,247,238,.88);
+    border:1px solid var(--rule);
+    border-radius:4px;
+    padding:1.3rem 1.2rem 1.1rem;
+    box-shadow:var(--shadow);
+  }
+  .audio-recording h3{
+    margin-top:0;
+  }
+  .audio-recording audio{
+    width:100%;
+    margin:.5rem 0 .2rem;
+  }
+  .audio-recording .audio-note{
+    font-size:.92em;
+    color:var(--ink-soft);
+    margin-top:.6rem;
+  }
+
   /* ========== FOOTER ========== */
   footer{
     text-align:center;
@@ -464,6 +490,17 @@
 </nav>
 
 <p class="preface">Áudio gravado em 2 de maio, última noite em Roma. Edição preserva o formato de diálogo entre Fernanda e João, com limpeza de repetições e reorganização cronológica.</p>
+<section class="audio-recording" id="gravacao-final">
+  <div class="card">
+    <h3>Gravação original</h3>
+    <p>Conversa entre Fernanda e João que deu origem a este diário.</p>
+    <audio controls preload="metadata">
+      <source src="Relato Roma - May 2 at 9-49 PM (1).m4a" type="audio/mp4">
+      Seu navegador não suporta o player de áudio.
+    </audio>
+    <p class="audio-note">Se o player não abrir, use este link direto: <a href="Relato Roma - May 2 at 9-49 PM (1).m4a">ouvir/download do áudio</a>.</p>
+  </div>
+</section>
 
 <!-- ============== DIA 1 ============== -->
 <section class="day-section" id="dia1">
