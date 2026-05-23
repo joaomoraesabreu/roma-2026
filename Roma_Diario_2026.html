@@ -7,6 +7,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=Cormorant+SC:wght@500;600&display=swap" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.min.css" rel="stylesheet">
 <style>
   :root{
     --stone:#f2eadc;
@@ -191,6 +192,102 @@
   }
   .toc ol a:hover{color:var(--terracotta);border-bottom-color:var(--terracotta)}
   .toc .day{font-family:'Cormorant SC',serif;color:var(--gold);font-size:.85em;letter-spacing:.18em;margin-right:.6em}
+
+  /* ========== MAP ========== */
+  .trip-map{
+    max-width:980px;
+    margin:0 auto 4rem;
+    padding:0 1.5rem;
+  }
+  .trip-map .card{
+    background:rgba(251,247,238,.9);
+    border:1px solid var(--rule);
+    border-radius:4px;
+    padding:1.1rem 1.1rem 1rem;
+    box-shadow:var(--shadow);
+  }
+  .trip-map h2{
+    margin:.2rem 0 .5rem;
+    text-align:center;
+    font-family:'Cormorant SC',serif;
+    letter-spacing:.26em;
+    color:var(--gold);
+    font-size:.9rem;
+    font-weight:600;
+  }
+  .trip-map .intro{
+    margin:.35rem auto .95rem;
+    max-width:70ch;
+    text-align:center;
+    color:var(--ink-soft);
+    font-family:'Cormorant Garamond',serif;
+    font-size:1.08rem;
+    line-height:1.45;
+  }
+  #romaMap{
+    width:100%;
+    height:460px;
+    border:1px solid rgba(100,43,29,.22);
+    border-radius:4px;
+    overflow:hidden;
+    background:#ede2cd;
+  }
+  .map-legend{
+    margin:.95rem 0 0;
+    padding:0;
+    list-style:none;
+    display:grid;
+    grid-template-columns:repeat(2, minmax(0, 1fr));
+    gap:.5rem .9rem;
+  }
+  .map-legend a{
+    display:block;
+    text-decoration:none;
+    color:var(--ink-soft);
+    border:1px solid rgba(168,132,59,.34);
+    background:rgba(242,234,220,.72);
+    border-radius:4px;
+    padding:.42rem .58rem;
+    font-family:'Cormorant Garamond',serif;
+    font-size:1.04rem;
+    transition:color .2s, border-color .2s, background .2s;
+  }
+  .map-legend a:hover{
+    color:var(--terracotta);
+    border-color:var(--gold);
+    background:rgba(242,234,220,.95);
+  }
+  .map-legend .legend-day{
+    font-family:'Cormorant SC',serif;
+    letter-spacing:.19em;
+    color:var(--gold);
+    font-size:.7rem;
+    margin-right:.5rem;
+  }
+  .map-popup{
+    font-family:'Cormorant Garamond',serif;
+    color:var(--ink-soft);
+    line-height:1.3;
+  }
+  .map-popup strong{
+    font-family:'Cormorant SC',serif;
+    letter-spacing:.14em;
+    font-size:.75rem;
+    color:var(--terracotta-deep);
+  }
+  .leaflet-popup-content-wrapper{
+    border-radius:4px;
+    border:1px solid rgba(100,43,29,.22);
+  }
+  .day-section.map-focus{
+    outline:2px solid rgba(180,135,62,.42);
+    border-radius:4px;
+    transition:outline-color .7s;
+  }
+  @media (max-width:780px){
+    #romaMap{height:380px}
+    .map-legend{grid-template-columns:1fr}
+  }
 
   /* ========== DAY SECTIONS ========== */
   .day-section{
@@ -488,6 +585,23 @@
     <li><a href="#dia7"><span class="day">SÁB 2 MAI</span>Tivoli · Missa no Panteão</a></li>
   </ol>
 </nav>
+
+<section class="trip-map" id="mapa-roteiro" aria-label="Mapa do roteiro em Roma">
+  <div class="card">
+    <h2>MAPA DO ROTEIRO</h2>
+    <p class="intro">Tem ansiedade? Vai lá, clica nos pontos para saltar direto para o trecho correspondente no diário.</p>
+    <div id="romaMap" role="application" aria-label="Mapa interativo do roteiro"></div>
+    <ul class="map-legend">
+      <li><a href="#dia1"><span class="legend-day">DIA 1</span>Prati · Castel Sant'Angelo</a></li>
+      <li><a href="#dia2"><span class="legend-day">DIA 2</span>Panteão · Vaticano</a></li>
+      <li><a href="#dia3"><span class="legend-day">DIA 3</span>Aventino · Janículo</a></li>
+      <li><a href="#dia4"><span class="legend-day">DIA 4</span>Fórum · Coliseu</a></li>
+      <li><a href="#dia5"><span class="legend-day">DIA 5</span>Orvieto</a></li>
+      <li><a href="#dia6"><span class="legend-day">DIA 6</span>Via Appia</a></li>
+      <li><a href="#dia7"><span class="legend-day">DIA 7</span>Tivoli · Panteão</a></li>
+    </ul>
+  </div>
+</section>
 
 <p class="preface">Áudio gravado em 2 de maio, última noite em Roma. Edição preserva o formato de diálogo entre Fernanda e João, com limpeza de repetições e reorganização cronológica.</p>
 <section class="audio-recording" id="gravacao-final">
@@ -1219,5 +1333,60 @@
   <div class="center-orn">❖</div>
 </footer>
 
+<script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.min.js"></script>
+<script>
+  (function () {
+    if (!window.L) return;
+
+    var map = L.map("romaMap", { scrollWheelZoom: false }).setView([41.895, 12.496], 11);
+
+    L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+      maxZoom: 19,
+      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+    }).addTo(map);
+
+    var stops = [
+      { day: "Dia 1", place: "Prati / Castel Sant'Angelo", section: "dia1", lat: 41.9033, lng: 12.4663 },
+      { day: "Dia 2", place: "Panteão / Vaticano", section: "dia2", lat: 41.8995, lng: 12.4769 },
+      { day: "Dia 3", place: "Aventino / Janículo", section: "dia3", lat: 41.8842, lng: 12.4784 },
+      { day: "Dia 4", place: "Fórum / Coliseu", section: "dia4", lat: 41.8925, lng: 12.4853 },
+      { day: "Dia 5", place: "Orvieto", section: "dia5", lat: 42.7185, lng: 12.1110 },
+      { day: "Dia 6", place: "Via Appia Antica", section: "dia6", lat: 41.8573, lng: 12.5312 },
+      { day: "Dia 7", place: "Tivoli / Panteão", section: "dia7", lat: 41.9630, lng: 12.7980 }
+    ];
+
+    var latLngs = [];
+    var linePoints = [];
+
+    stops.forEach(function (stop) {
+      var point = [stop.lat, stop.lng];
+      latLngs.push(point);
+      linePoints.push(point);
+
+      var marker = L.marker(point).addTo(map);
+      marker.bindPopup(
+        '<div class="map-popup"><strong>' + stop.day + '</strong><br>' +
+        stop.place + '<br><a href="#' + stop.section + '">Ir para este dia</a></div>'
+      );
+
+      marker.on("click", function () {
+        var target = document.getElementById(stop.section);
+        if (!target) return;
+        target.scrollIntoView({ behavior: "smooth", block: "start" });
+        target.classList.add("map-focus");
+        window.setTimeout(function () { target.classList.remove("map-focus"); }, 1500);
+      });
+    });
+
+    L.polyline(linePoints, {
+      color: "#9c4c2f",
+      weight: 3,
+      opacity: 0.85,
+      dashArray: "7 7"
+    }).addTo(map);
+
+    map.fitBounds(latLngs, { padding: [25, 25] });
+  })();
+</script>
 </body>
 </html>
