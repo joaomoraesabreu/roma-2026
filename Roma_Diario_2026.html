@@ -524,6 +524,110 @@
     margin-top:.6rem;
   }
 
+  /* ========== QUIZ ========== */
+  .quiz{
+    max-width:860px;
+    margin:1.6rem auto 1.4rem;
+    padding:0 1.5rem;
+  }
+  .quiz .card{
+    background:rgba(251,247,238,.9);
+    border:1px solid var(--rule);
+    border-radius:4px;
+    padding:1.3rem 1.2rem 1.15rem;
+    box-shadow:var(--shadow);
+  }
+  .quiz h2{
+    margin:.2rem 0 .45rem;
+    text-align:center;
+    font-family:'Cormorant SC',serif;
+    letter-spacing:.25em;
+    color:var(--gold);
+    font-size:.9rem;
+    font-weight:600;
+  }
+  .quiz .intro{
+    margin:.2rem auto 1rem;
+    text-align:center;
+    color:var(--ink-soft);
+    font-family:'Cormorant Garamond',serif;
+    font-size:1.1rem;
+  }
+  .quiz .q{
+    border:1px solid rgba(168,132,59,.33);
+    background:rgba(242,234,220,.55);
+    border-radius:4px;
+    padding:.78rem .78rem .68rem;
+    margin:.65rem 0;
+  }
+  .quiz .q-title{
+    font-family:'Cormorant Garamond',serif;
+    color:var(--ink);
+    font-size:1.12rem;
+    margin:0 0 .42rem;
+  }
+  .quiz .opts{
+    display:grid;
+    gap:.28rem;
+  }
+  .quiz label{
+    display:flex;
+    align-items:flex-start;
+    gap:.42rem;
+    color:var(--ink-soft);
+    font-size:1rem;
+    cursor:pointer;
+  }
+  .quiz input[type="radio"]{
+    margin-top:.2rem;
+    accent-color:var(--terracotta);
+  }
+  .quiz .feedback{
+    min-height:1.2rem;
+    margin-top:.45rem;
+    font-size:.92rem;
+    color:var(--ink-soft);
+  }
+  .quiz .feedback.ok{color:#43633d}
+  .quiz .feedback.err{color:#8a3f2a}
+  .quiz .actions{
+    display:flex;
+    gap:.6rem;
+    flex-wrap:wrap;
+    justify-content:center;
+    margin-top:1rem;
+  }
+  .quiz button{
+    border:1px solid rgba(100,43,29,.35);
+    background:rgba(242,234,220,.85);
+    color:var(--terracotta-deep);
+    border-radius:4px;
+    padding:.48rem .85rem;
+    font-family:'Cormorant SC',serif;
+    letter-spacing:.14em;
+    font-size:.73rem;
+    cursor:pointer;
+    transition:background .2s, border-color .2s, color .2s;
+  }
+  .quiz button:hover{
+    background:#eadbc1;
+    border-color:var(--gold);
+    color:var(--terracotta);
+  }
+  .quiz .result{
+    text-align:center;
+    margin-top:.9rem;
+    color:var(--ink-soft);
+    font-family:'Cormorant Garamond',serif;
+    font-size:1.2rem;
+    min-height:1.5rem;
+    transition:color .25s ease;
+  }
+  .quiz .result.tier-low{color:#8a3f2a}
+  .quiz .result.tier-mid{color:#7a5a1f}
+  .quiz .result.tier-high{color:#43633d}
+  .quiz .result.tier-perfect{color:#2f5a8a}
+
   /* ========== FOOTER ========== */
   footer{
     text-align:center;
@@ -1327,6 +1431,80 @@
   <a class="back-top" href="#top">↑ TOPO</a>
 </section>
 
+<section class="quiz" id="quiz-roma">
+  <div class="card">
+    <h2>QUIZ DE ROMA</h2>
+    <p class="intro">Quem leu até aqui está pronto para testar a memória da viagem.</p>
+    <form id="romaQuiz" novalidate>
+      <fieldset class="q">
+        <legend class="q-title">1) Qual bairro ficava o primeiro hotel?</legend>
+        <div class="opts">
+          <label><input type="radio" name="q1" value="a"> Trastevere</label>
+          <label><input type="radio" name="q1" value="b"> Prati</label>
+          <label><input type="radio" name="q1" value="c"> Monti</label>
+        </div>
+        <div class="feedback" data-feedback="q1"></div>
+      </fieldset>
+
+      <fieldset class="q">
+        <legend class="q-title">2) Em qual dia aconteceu o bate-volta para Orvieto?</legend>
+        <div class="opts">
+          <label><input type="radio" name="q2" value="a"> Segunda-feira, 27 de abril</label>
+          <label><input type="radio" name="q2" value="b"> Quinta-feira, 30 de abril</label>
+          <label><input type="radio" name="q2" value="c"> Sábado, 2 de maio</label>
+        </div>
+        <div class="feedback" data-feedback="q2"></div>
+      </fieldset>
+
+      <fieldset class="q">
+        <legend class="q-title">3) Qual frase ajudou a entrar na missa no Panteão?</legend>
+        <div class="opts">
+          <label><input type="radio" name="q3" value="a"> Buona sera, abbiamo prenotazione</label>
+          <label><input type="radio" name="q3" value="b"> Posso vedere il Pantheon adesso?</label>
+          <label><input type="radio" name="q3" value="c"> Sono qui per la messa</label>
+        </div>
+        <div class="feedback" data-feedback="q3"></div>
+      </fieldset>
+
+      <fieldset class="q">
+        <legend class="q-title">4) Que sabor de sorvete foi citado em Tivoli?</legend>
+        <div class="opts">
+          <label><input type="radio" name="q4" value="a"> Pistache e chocolate branco</label>
+          <label><input type="radio" name="q4" value="b"> Limão e framboesa</label>
+          <label><input type="radio" name="q4" value="c"> Coco e café</label>
+        </div>
+        <div class="feedback" data-feedback="q4"></div>
+      </fieldset>
+
+      <fieldset class="q">
+        <legend class="q-title">5) Que meio de transporte foi usado na Via Appia?</legend>
+        <div class="opts">
+          <label><input type="radio" name="q5" value="a"> Vespa</label>
+          <label><input type="radio" name="q5" value="b"> Bike</label>
+          <label><input type="radio" name="q5" value="c"> Barco</label>
+        </div>
+        <div class="feedback" data-feedback="q5"></div>
+      </fieldset>
+
+      <fieldset class="q">
+        <legend class="q-title">6) Em qual lugar ocorreu o jantar final?</legend>
+        <div class="opts">
+          <label><input type="radio" name="q6" value="a"> Trastevere</label>
+          <label><input type="radio" name="q6" value="b"> Testaccio</label>
+          <label><input type="radio" name="q6" value="c"> Prati</label>
+        </div>
+        <div class="feedback" data-feedback="q6"></div>
+      </fieldset>
+
+      <div class="actions">
+        <button type="button" id="quizCheck">VER RESULTADO</button>
+        <button type="reset" id="quizReset">RECOMEÇAR</button>
+      </div>
+      <div class="result" id="quizResult" aria-live="polite"></div>
+    </form>
+  </div>
+</section>
+
 <footer>
   <div class="signoff">fim.</div>
   Roma · 26 abr — 2 mai · 2026
@@ -1386,6 +1564,81 @@
     }).addTo(map);
 
     map.fitBounds(latLngs, { padding: [25, 25] });
+  })();
+</script>
+<script>
+  (function () {
+    var form = document.getElementById("romaQuiz");
+    var checkBtn = document.getElementById("quizCheck");
+    var resetBtn = document.getElementById("quizReset");
+    var result = document.getElementById("quizResult");
+    if (!form || !checkBtn || !resetBtn || !result) return;
+
+    var answers = { q1: "b", q2: "b", q3: "c", q4: "a", q5: "b", q6: "a" };
+    var scoreMessages = {
+      0: "0 de 6. Você fez check-in em Roma, mas sua memória ficou no aeroporto. Prefira ver vídeos no TikTok",
+      1: "1 de 6. Um começo... mas assim, ruim.",
+      2: "2 de 6. Já dá para pedir gelato sem medo, mas ainda não para guiar o roteiro.",
+      3: "3 de 6. Meio a meio: turista aplicado com talento para improviso. Deve ter chutado algumas.",
+      4: "4 de 6. Muito bom. Já merece uma janta na Piazza Navona.",
+      5: "5 de 6. Quase gabarito. Orgulharia Adriano e quem veio depois.",
+      6: "6 de 6. Gabaritou. Conhece Roma só de ler e ouvir. Brilhou. Não pediu pra IA não né?"
+    };
+    var total = Object.keys(answers).length;
+
+    function clearFeedback() {
+      var nodes = form.querySelectorAll(".feedback");
+      nodes.forEach(function (node) {
+        node.textContent = "";
+        node.classList.remove("ok");
+        node.classList.remove("err");
+      });
+      result.classList.remove("tier-low", "tier-mid", "tier-high", "tier-perfect");
+    }
+
+    checkBtn.addEventListener("click", function () {
+      var score = 0;
+      clearFeedback();
+
+      Object.keys(answers).forEach(function (key) {
+        var selected = form.querySelector('input[name="' + key + '"]:checked');
+        var feedback = form.querySelector('[data-feedback="' + key + '"]');
+        if (!feedback) return;
+
+        if (!selected) {
+          feedback.textContent = "Escolha uma opção.";
+          feedback.classList.add("err");
+          return;
+        }
+        if (selected.value === answers[key]) {
+          score += 1;
+          feedback.textContent = "Certo.";
+          feedback.classList.add("ok");
+        } else {
+          feedback.textContent = "Quase. Tente de novo.";
+          feedback.classList.add("err");
+        }
+      });
+
+      result.classList.remove("tier-low", "tier-mid", "tier-high", "tier-perfect");
+      if (score <= 1) {
+        result.classList.add("tier-low");
+      } else if (score <= 3) {
+        result.classList.add("tier-mid");
+      } else if (score <= 5) {
+        result.classList.add("tier-high");
+      } else {
+        result.classList.add("tier-perfect");
+      }
+      result.textContent = scoreMessages[score] || ("Pontuacao: " + score + " de " + total + ".");
+    });
+
+    resetBtn.addEventListener("click", function () {
+      window.setTimeout(function () {
+        clearFeedback();
+        result.textContent = "";
+      }, 0);
+    });
   })();
 </script>
 </body>
